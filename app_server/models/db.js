@@ -1,4 +1,4 @@
-var mongoose = require( 'mongoose' );
+/*var mongoose = require( 'mongoose' );
 var dbURI = 'mongodb://localhost/restaurants';
 mongoose.connect(dbURI);
 mongoose.connection.on('connected', function () {
@@ -32,4 +32,4 @@ process.on('SIGTERM', function() {
         process.exit(0);
     });
 });
-require('./restaurants');
+require('./restaurants');*/

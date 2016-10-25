@@ -4,11 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-require('./app_server/models/db');
-
+//require('./app_server/models/db');
+//instantiating instances of modules
 var routes = require('./app_server/routes/index');
+//routes folder, index.js file
 var restaurants =  require('./app_server/routes/restaurants');
+//routes folder, restaurants.js file
 var users = require('./app_server/routes/users');
+//routes folder, users.js file
 
 var app = express();
 
@@ -25,11 +28,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.get('/restaurants', restaurants.findAll);
+//app.get('/restaurants', restaurants.findAll);
 app.get('/restaurants/:id', restaurants.findById);
-app.post('/wines', restaurants.addEntry);
+app.get('/restaurants', restaurants.update);
+app.post('/update',restaurants.confirm);
+//here's the deal with :id
+//when registering this route with express
+//take this part of the URL and store in a variable, id
+//any variable captured this way is put in the request inside the params object
+
+//app.post('/restaurants', restaurants.updateNew);
+
+/*app.post('/wines', restaurants.addEntry);
 app.put('/restaurants/:id', restaurants.updateById);
-app.delete('/restaurants/:id', restaurants.deleteById);
+app.delete('/restaurants/:id', restaurants.deleteById);*/
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

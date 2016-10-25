@@ -1,4 +1,4 @@
-var mongoose = require( 'mongoose' );
+/*var mongoose = require( 'mongoose' );
 var restaurantSchema = new mongoose.Schema({
     building: String,
     coord: [-73.856077, 40.848447],
@@ -12,5 +12,5 @@ var restaurantSchema = new mongoose.Schema({
     {date: {$date: 1322006400000}, grade: String, score: Number},
     {date: {$date: 1299715200000}, grade: String, score: Number}],
     name: String,
-    restaurant_id: String});
+    restaurant_id: String});*/
 
