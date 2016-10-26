@@ -29,41 +29,73 @@ exports.findById = function(req, res) {
         });
     });
 };
-//issue a query to the restaurants collectiom
+/issue a query to the restaurants collectiom
 //toArray method will consume the result set, produce an array and pass to the callback, items parameter!
 exports.findAll = function(req, res) {
     console.log('Retrieving all restaurants');
     db.collection('restaurants', function(err, collection) {
         collection.find().toArray(function(err, items) {
-            //res.send(items);
-            res.render('restaurants',{stuff: 'good morning'})
+            res.send(items);
+            //res.render('restaurants',{stuff: 'good morning'})
         });
     });
 };
-/*exports.updateNew = function(req, res) {
-    console.log('Update wine recommendations');
+exports.addRestaurant = function(req, res) {
+    var restaurant = req.body;
+    console.log('Adding restaurant: ' + restaurant);
     db.collection('restaurants', function(err, collection) {
-        collection.update()(function(err, items) {
-            res.send(items);
-        });
+        collection.insert(restaurant,{safe:true},{function(err, result) {
+            console.log('Success: ' + result[0]);
+            res.send(result[0]);
+        }
     });
-};*/
+});
+exports.updateRestaurant = function(req, res) {
+    var id = req.params.id;
+    var restaurant = req.body;
+    console.log('Updating restaurant: ' + id);
+    console.log(restaurant);
+    db.collection('restaurants', function(err, collection) {
+        collection.update({'_id':new ObjectID(id)}, restaurant,{safe:true},(function(err, result) {
+            console.log('Success: ' + result[0] + ' updated');
+            res.send(restaurant);
+        }));
+    });
+};
+exports.deleteRestaurant = function(req, res) {
+    var id = req.params.id;
+    console.log('Deleting restaurant: ' + id);
+    console.log(restaurant);
+    db.collection('restaurants', function(err, collection) {
+        collection.remove({'_id':new ObjectID(id)}, {safe:true},(function(err, result) {
+            console.log('Success: ' + result[0] + ' deleted');
+        res.send(req.body);
+    }));
+    });
+};
+
+
+/*
 exports.update = function(req, res) {
+
     /*console.log('Retrieving all restaurants');
     db.collection('restaurants', function(err, collection) {
         collection.find().toArray(function(err, items) {
             //res.send(items);*/
-            res.render('test',{title: 'good morning'})
+            //res.render('test',{title: 'good morning'})
         //});
    // });
-};
-exports.confirm = function(req, res) {
+}
+//exports.confirm = function(req, res) {
     /*console.log('Retrieving all restaurants');
      db.collection('restaurants', function(err, collection) {
      collection.find().toArray(function(err, items) {
-     //res.send(items);*/
+     //res.send(items);
     var updateName = req.body.name;
-    res.send(updateName);
+    var updateBorough = req.body.borough;
+
+    res.send(updateName,updateBorough);
+
     //});
     // });
-};
+};*/
