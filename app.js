@@ -27,11 +27,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-//app.get('/restaurants', restaurants.findAll);
+app.get('/restaurants',restaurants.findAll);
+app.get('/restaurants/:id',restaurants.findById);
+app.post('/restaurants',restaurants.addRestaurant);
+app.put('/restaurants/:id',restaurants.updateRestaurant);
+app.delete('/restaurants/:id',restaurants.deleteRestaurant);
+
+/*app.use('/', routes);
+app.get('/restaurants', restaurants.findAll);
 app.get('/restaurants/:id', restaurants.findById);
-app.get('/restaurants', restaurants.update);
-app.post('/update',restaurants.confirm);
+app.get('/add', restaurants.update);
+app.post('/update',restaurants.confirm);*/
 //here's the deal with :id
 //when registering this route with express
 //take this part of the URL and store in a variable, id
