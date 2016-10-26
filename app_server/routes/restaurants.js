@@ -29,7 +29,7 @@ exports.findById = function(req, res) {
         });
     });
 };
-/issue a query to the restaurants collectiom
+//issue a query to the restaurants collectiom
 //toArray method will consume the result set, produce an array and pass to the callback, items parameter!
 exports.findAll = function(req, res) {
     console.log('Retrieving all restaurants');
