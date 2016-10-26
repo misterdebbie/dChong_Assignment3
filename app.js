@@ -27,11 +27,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', routes);
 app.get('/restaurants',restaurants.findAll);
 app.get('/restaurants/:id',restaurants.findById);
-app.post('/restaurants',restaurants.addRestaurant);
-app.put('/restaurants/:id',restaurants.updateRestaurant);
-app.delete('/restaurants/:id',restaurants.deleteRestaurant);
+//app.post('/restaurants',restaurants.addRestaurant);
+//app.put('/restaurants/:id',restaurants.updateRestaurant);
+//app.delete('/restaurants/:id',restaurants.deleteRestaurant);
 
 /*app.use('/', routes);
 app.get('/restaurants', restaurants.findAll);
