@@ -40,16 +40,17 @@ exports.findAll = function(req, res) {
         });
     });
 };
+/*
 exports.addRestaurant = function(req, res) {
     var restaurant = req.body;
     console.log('Adding restaurant: ' + restaurant);
     db.collection('restaurants', function(err, collection) {
-        collection.insert(restaurant,{safe:true},{function(err, result) {
-            console.log('Success: ' + result[0]);
-            res.send(result[0]);
-        }
+        collection.insert(restaurant,{safe:true},function(err, item) {
+            console.log('Success: ' + item[0]);
+            res.send(item[0]);
+        });
     });
-});
+};
 exports.updateRestaurant = function(req, res) {
     var id = req.params.id;
     var restaurant = req.body;
@@ -72,7 +73,7 @@ exports.deleteRestaurant = function(req, res) {
         res.send(req.body);
     }));
     });
-};
+};*/
 
 
 /*
@@ -85,7 +86,7 @@ exports.update = function(req, res) {
             //res.render('test',{title: 'good morning'})
         //});
    // });
-}
+//}
 //exports.confirm = function(req, res) {
     /*console.log('Retrieving all restaurants');
      db.collection('restaurants', function(err, collection) {
