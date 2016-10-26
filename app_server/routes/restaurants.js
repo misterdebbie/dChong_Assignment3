@@ -8,10 +8,10 @@ var Db = require('mongodb').Db,
 //connect to localhost
 //port 27017 is mongoDB default
 var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('test', server);
-db.open(function(err, db) {
+ db = new Db('test', server);
+ db.open(function(err, db) {
     if(!err) {
-        console.log("Connected to 'test' database");
+        console.log("Connected to 'restaurant' database");
         db.collection('restaurants', {strict:true}, function(err, collection) {
             if (err) {
                 console.log("The 'restaurants' collection doesn't exist.");
@@ -36,29 +36,29 @@ exports.findAll = function(req, res) {
     db.collection('restaurants', function(err, collection) {
         collection.find().toArray(function(err, items) {
             res.send(items);
-            //res.render('restaurants',{stuff: 'good morning'})
         });
     });
 };
-/*
+
 exports.addRestaurant = function(req, res) {
     var restaurant = req.body;
-    console.log('Adding restaurant: ' + restaurant);
+    console.log('Adding restaurant: ' + JSON.stringify(restaurant));
     db.collection('restaurants', function(err, collection) {
-        collection.insert(restaurant,{safe:true},function(err, item) {
-            console.log('Success: ' + item[0]);
-            res.send(item[0]);
+        collection.insert(restaurant,{safe:true},function(err, result) {
+            console.log('Success: ' + JSON.stringify(result[0]));
+            res.send(result[0]);
         });
     });
 };
+
 exports.updateRestaurant = function(req, res) {
     var id = req.params.id;
     var restaurant = req.body;
     console.log('Updating restaurant: ' + id);
-    console.log(restaurant);
+    console.log(JSON.stringify(restaurant));
     db.collection('restaurants', function(err, collection) {
         collection.update({'_id':new ObjectID(id)}, restaurant,{safe:true},(function(err, result) {
-            console.log('Success: ' + result[0] + ' updated');
+            console.log('Success: ' + result + ' updated');
             res.send(restaurant);
         }));
     });
@@ -66,14 +66,13 @@ exports.updateRestaurant = function(req, res) {
 exports.deleteRestaurant = function(req, res) {
     var id = req.params.id;
     console.log('Deleting restaurant: ' + id);
-    console.log(restaurant);
     db.collection('restaurants', function(err, collection) {
         collection.remove({'_id':new ObjectID(id)}, {safe:true},(function(err, result) {
-            console.log('Success: ' + result[0] + ' deleted');
+            console.log('Success: ' + result + ' deleted');
         res.send(req.body);
     }));
     });
-};*/
+};
 
 
 /*
