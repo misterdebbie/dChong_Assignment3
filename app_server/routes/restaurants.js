@@ -45,8 +45,12 @@ exports.addRestaurant = function(req, res) {
     console.log('Adding restaurant: ' + JSON.stringify(restaurant));
     db.collection('restaurants', function(err, collection) {
         collection.insert(restaurant,{safe:true},function(err, result) {
-            console.log('Success: ' + JSON.stringify(result[0]));
-            res.send(result[0]);
+            if (err){
+                res.send({'error': 'Something is wrong!'});
+            } else {
+                console.log('Success: ' + JSON.stringify(result[0]));
+                res.send(result[0]);
+            }
         });
     });
 };
@@ -58,8 +62,13 @@ exports.updateRestaurant = function(req, res) {
     console.log(JSON.stringify(restaurant));
     db.collection('restaurants', function(err, collection) {
         collection.update({'_id':new ObjectID(id)}, restaurant,{safe:true},(function(err, result) {
-            console.log('Success: ' + result + ' updated');
-            res.send(restaurant);
+            if (err){
+                console.log('Error updating restaurant: ' + err);
+                res.send({'error': 'Something is wrong!'});
+            } else {
+                console.log('Success: ' + result + ' updated');
+                res.send(restaurant);
+            }
         }));
     });
 };
@@ -68,8 +77,12 @@ exports.deleteRestaurant = function(req, res) {
     console.log('Deleting restaurant: ' + id);
     db.collection('restaurants', function(err, collection) {
         collection.remove({'_id':new ObjectID(id)}, {safe:true},(function(err, result) {
-            console.log('Success: ' + result + ' deleted');
-        res.send(req.body);
+            if (err){
+                res.send({'error': 'Something is wrong!'});
+            } else {
+                console.log('Success: ' + result + ' deleted');
+                res.send(req.body);
+            }
     }));
     });
 };
